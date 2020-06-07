@@ -117,11 +117,14 @@ class CocoDataset(CustomDataset):
             print (ann['segmentation'])
 
             if ann.get('ignore', False):
+                print ('ignore')
                 continue
             x1, y1, w, h = ann['bbox']
             if ann['area'] <= 0 or w < 1 or h < 1:
+                print ('wrong area')
                 continue
             if ann['category_id'] not in self.cat_ids:
+                print ('wrong cat id')
                 continue
             bbox = [x1, y1, x1 + w, y1 + h]
             # if ann.get('iscrowd', False):
