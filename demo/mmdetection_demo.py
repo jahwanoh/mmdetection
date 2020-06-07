@@ -134,7 +134,7 @@ def process_jpg_crcnn(config_file, checkpoint_file, image_dir):
         bboxes = np.vstack(bbox_result)
 
         print (segm_result)
-        
+
         labels = [np.full(bbox.shape[0], i, dtype=np.int32) for i, bbox in enumerate(bbox_result)]
         labels = np.concatenate(labels)
 
@@ -163,9 +163,9 @@ if __name__ == '__main__':
     data_dir = sys.argv[1]
     config_file = sys.argv[2]
     checkpoint_file = sys.argv[3]
-    frame_offset = sys.argv[4]
-    frame_count = sys.argv[5]
-    dsort_dir = sys.argv[6]
+    # frame_offset = sys.argv[4]
+    # frame_count = sys.argv[5]
+    # dsort_dir = sys.argv[6]
 
     # process_video_crcnn(frame_offset, frame_count, config_file, checkpoint_file, data_dir, dsort_dir)
     process_jpg_crcnn(config_file, checkpoint_file, data_dir)
