@@ -111,7 +111,7 @@ class CocoDataset(CustomDataset):
         gt_masks_ann = []
         
         print (ann_info)
-        
+
         for i, ann in enumerate(ann_info):
             if ann.get('ignore', False):
                 continue
@@ -126,7 +126,6 @@ class CocoDataset(CustomDataset):
             # else:
             gt_bboxes.append(bbox)
             gt_labels.append(self.cat2label[ann['category_id']])
-            print (ann)
             gt_masks_ann.append(ann['segmentation'])
 
         if gt_bboxes:
