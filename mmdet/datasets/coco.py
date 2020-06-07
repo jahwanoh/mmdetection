@@ -110,7 +110,10 @@ class CocoDataset(CustomDataset):
         gt_bboxes_ignore = []
         gt_masks_ann = []
         
-        print (ann_info)
+        # print (ann_info)
+
+        for a in ann_info:
+            print (a)
 
         for i, ann in enumerate(ann_info):
             if ann.get('ignore', False):
@@ -121,12 +124,12 @@ class CocoDataset(CustomDataset):
             if ann['category_id'] not in self.cat_ids:
                 continue
             bbox = [x1, y1, x1 + w, y1 + h]
-            # if ann.get('iscrowd', False):
-                # gt_bboxes_ignore.append(bbox)
-            # else:
-            gt_bboxes.append(bbox)
-            gt_labels.append(self.cat2label[ann['category_id']])
-            gt_masks_ann.append(ann['segmentation'])
+            if ann.get('iscrowd', False):
+                gt_bboxes_ignore.append(bbox)
+            else:
+                gt_bboxes.append(bbox)
+                gt_labels.append(self.cat2label[ann['category_id']])
+                gt_masks_ann.append(ann['segmentation'])
 
         if gt_bboxes:
             gt_bboxes = np.array(gt_bboxes, dtype=np.float32)
