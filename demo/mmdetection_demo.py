@@ -135,7 +135,9 @@ def process_jpg_crcnn(config_file, checkpoint_file, image_dir):
         else:
             bbox_result, segm_result = result, None
 
-        print (segm_result[0][0].shape)
+        mask = segm_result[0][0]
+        print (mask.shape)
+        print (len(np.where(mask==True)))
 
         bboxes = np.vstack(bbox_result)
 
