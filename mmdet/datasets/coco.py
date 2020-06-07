@@ -111,14 +111,15 @@ class CocoDataset(CustomDataset):
         gt_masks_ann = []
         
         for i, ann in enumerate(ann_info):
-        # for ann in ann_info:
             print (ann['segmentation'])
+
             if ann.get('ignore', False):
                 continue
             x1, y1, w, h = ann['bbox']
             if ann['area'] <= 0 or w < 1 or h < 1:
                 continue
             if ann['category_id'] not in self.cat_ids:
+                print ('wrong category', ann['category_id'])
                 continue
             bbox = [x1, y1, x1 + w, y1 + h]
             if ann.get('iscrowd', False):
