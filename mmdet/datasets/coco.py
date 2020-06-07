@@ -112,10 +112,11 @@ class CocoDataset(CustomDataset):
         
         # print (ann_info)
 
-        for a in ann_info:
-            print (a)
+        # for a in ann_info:
+            # print (a)
 
-        for i, ann in enumerate(ann_info):
+        # for i, ann in enumerate(ann_info):
+        for ann in ann_info:
             if ann.get('ignore', False):
                 continue
             x1, y1, w, h = ann['bbox']
@@ -130,6 +131,7 @@ class CocoDataset(CustomDataset):
                 gt_bboxes.append(bbox)
                 gt_labels.append(self.cat2label[ann['category_id']])
                 gt_masks_ann.append(ann['segmentation'])
+            print (ann['segmentation'])
 
         if gt_bboxes:
             gt_bboxes = np.array(gt_bboxes, dtype=np.float32)
