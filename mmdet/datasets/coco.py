@@ -126,12 +126,12 @@ class CocoDataset(CustomDataset):
                 print ('wrong category', ann['category_id'])
                 continue
             bbox = [x1, y1, x1 + w, y1 + h]
-            if ann.get('iscrowd', False):
-                gt_bboxes_ignore.append(bbox)
-            else:
-                gt_bboxes.append(bbox)
-                gt_labels.append(self.cat2label[ann['category_id']])
-                gt_masks_ann.append(ann['segmentation'])
+            # if ann.get('iscrowd', False):
+            #     gt_bboxes_ignore.append(bbox)
+            # else:
+            gt_bboxes.append(bbox)
+            gt_labels.append(self.cat2label[ann['category_id']])
+            gt_masks_ann.append(ann['segmentation'])
 
         if gt_bboxes:
             gt_bboxes = np.array(gt_bboxes, dtype=np.float32)
