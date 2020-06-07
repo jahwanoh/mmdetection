@@ -133,6 +133,8 @@ def process_jpg_crcnn(config_file, checkpoint_file, image_dir):
         bbox_result, segm_result = result
         print (type(result))
         print (segm_result)
+        cv2.imwrite('./test.jpg', frame)
+
         bboxes = np.vstack(bbox_result)
 
         labels = [np.full(bbox.shape[0], i, dtype=np.int32) for i, bbox in enumerate(bbox_result)]
