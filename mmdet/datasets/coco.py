@@ -124,7 +124,7 @@ class CocoDataset(CustomDataset):
             # else:
             gt_bboxes.append(bbox)
             gt_labels.append(self.cat2label[ann['category_id']])
-            print (ann['segmentation'])
+            print (ann)
             gt_masks_ann.append(ann['segmentation'])
 
         if gt_bboxes:
