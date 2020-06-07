@@ -126,18 +126,17 @@ def process_jpg_crcnn(config_file, checkpoint_file, image_dir):
         if frame is None:
             break
     
-        start_time = time.time()
         result = inference_detector(model, frame)
-        end_time = time.time()
+
+        if isinstance(result, tuple):
+            bbox_result, segm_result = result
+            if isinstance(segm_result, tuple):
+                segm_result = segm_result[0]  # ms rcnn
+        else:
+            bbox_result, segm_result = result, None
+
+        print (segm_result)
         
-        bbox_result, segm_result = result
-        segm_result = segm_result[0]
-
-        print(segm_result[0])
-
-
-        print (len(np.where(segm_result[0]==True)))
-
         bboxes = np.vstack(bbox_result)
 
         labels = [np.full(bbox.shape[0], i, dtype=np.int32) for i, bbox in enumerate(bbox_result)]
