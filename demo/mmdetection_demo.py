@@ -138,12 +138,15 @@ def process_jpg_crcnn(config_file, checkpoint_file, image_dir):
         mask = segm_result[0][0]
         print (mask.shape)
 
-        count = 0
-        for row in mask:
-            for e in row:
-                if e == True:
-                    count = count+1
-        print (count)
+        # count = 0
+        # for row in mask:
+        #     for e in row:
+        #         if e == True:
+        #             count = count+1
+        # print (count)
+
+        mask = mask.T
+        print (mask.shape)
 
         bboxes = np.vstack(bbox_result)
 
@@ -151,7 +154,6 @@ def process_jpg_crcnn(config_file, checkpoint_file, image_dir):
         labels = np.concatenate(labels)
 
         res = cv2.bitwise_and(frame, frame, mask = mask)
-        mask = cv2.bitwise_and(frame, segm_result)
         cv2.imwrite('res_mask.jpg', mask)
 
         # for i in range(len(bboxes)):
