@@ -110,11 +110,9 @@ class CocoDataset(CustomDataset):
         gt_bboxes_ignore = []
         gt_masks_ann = []
         
-        # print (ann_info)
-
         for i, ann in enumerate(ann_info):
         # for ann in ann_info:
-            # print (ann['segmentation'])
+            print (ann['segmentation'])
             if ann.get('ignore', False):
                 continue
             x1, y1, w, h = ann['bbox']
