@@ -109,7 +109,9 @@ class CocoDataset(CustomDataset):
         gt_labels = []
         gt_bboxes_ignore = []
         gt_masks_ann = []
-
+        
+        print (ann_info)
+        
         for i, ann in enumerate(ann_info):
             if ann.get('ignore', False):
                 continue
