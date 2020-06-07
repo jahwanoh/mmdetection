@@ -117,8 +117,6 @@ class CocoDataset(CustomDataset):
 
         # for i, ann in enumerate(ann_info):
         for ann in ann_info:
-            print (ann['segmentation'])
-
             if ann.get('ignore', False):
                 continue
             x1, y1, w, h = ann['bbox']
@@ -148,6 +146,8 @@ class CocoDataset(CustomDataset):
 
         seg_map = img_info['filename'].replace('jpg', 'png')
 
+        print (gt_masks_ann)
+        
         ann = dict(
             bboxes=gt_bboxes,
             labels=gt_labels,
