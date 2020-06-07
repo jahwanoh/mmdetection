@@ -111,8 +111,8 @@ def process_jpg_crcnn(config_file, checkpoint_file, image_dir):
     now = datetime.now()
     date_time = now.strftime("%m%d%Y_%H%M%S")
 
-    log_filename = './demo/dump/det.txt'
-    log_file = open(log_filename, 'w')
+    # log_filename = './demo/dump/det.txt'
+    # log_file = open(log_filename, 'w')
 
     start_process = time.time()
 
@@ -143,7 +143,7 @@ def process_jpg_crcnn(config_file, checkpoint_file, image_dir):
             if labels[i] != 0:  continue
             d = (int(bb[0]), int(bb[1]), int(bb[2]), int(bb[3]))
             cv2.rectangle(frame, (d[0], d[1]), (d[2], d[3]), (255,0,0), 2)
-            log_file.write(str(f_number)+","+str(d[0])+","+str(d[1])+","+str(d[2])+","+str(d[3]) + "\n")
+            # log_file.write(str(f_number)+","+str(d[0])+","+str(d[1])+","+str(d[2])+","+str(d[3]) + "\n")
 
         if f_number == 1 or f_number % 50 == 0:
             end_process = time.time()
@@ -153,8 +153,8 @@ def process_jpg_crcnn(config_file, checkpoint_file, image_dir):
         if f_number == 1 or f_number % 200 == 0:
             dump_path = "./demo/dump/dump-%06d.jpg" % (f_number)
             cv2.imwrite(dump_path, frame)
-            log_file.flush()
-            os.fsync(log_file.fileno())
+            # log_file.flush()
+            # os.fsync(log_file.fileno())
 
     print('[DBG] detection complete!')
     log_file.close()
