@@ -53,6 +53,7 @@ class CocoDataset(CustomDataset):
         return self._parse_ann_info(self.data_infos[idx], ann_info)
 
     def get_cat_ids(self, idx):
+        print ('get cat ids')
         img_id = self.data_infos[idx]['id']
         ann_ids = self.coco.get_ann_ids(img_ids=[img_id])
         print (ann_ids)
