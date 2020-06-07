@@ -145,7 +145,7 @@ class CocoDataset(CustomDataset):
 
         seg_map = img_info['filename'].replace('jpg', 'png')
 
-        print (gt_masks_ann)
+        # print (gt_masks_ann)
 
         ann = dict(
             bboxes=gt_bboxes,
