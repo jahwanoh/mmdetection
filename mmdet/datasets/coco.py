@@ -55,6 +55,7 @@ class CocoDataset(CustomDataset):
     def get_cat_ids(self, idx):
         img_id = self.data_infos[idx]['id']
         ann_ids = self.coco.get_ann_ids(img_ids=[img_id])
+        print (ann_ids)
         ann_info = self.coco.load_anns(ann_ids)
         return [ann['category_id'] for ann in ann_info]
 
