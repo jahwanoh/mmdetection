@@ -138,8 +138,8 @@ def process_jpg_crcnn(config_file, checkpoint_file, image_dir):
         labels = [np.full(bbox.shape[0], i, dtype=np.int32) for i, bbox in enumerate(bbox_result)]
         labels = np.concatenate(labels)
 
-        res = cv2.bitwise_and(frame, frame, mask = segm_result)
-        cv2.imwrite('res_mask.jpg', frame)
+        mask = cv.bitwise_and(frame, segm_result)
+        cv2.imwrite('res_mask.jpg', mask)
 
         # for i in range(len(bboxes)):
         #     bb = bboxes[i]
