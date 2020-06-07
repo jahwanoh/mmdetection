@@ -131,11 +131,9 @@ def process_jpg_crcnn(config_file, checkpoint_file, image_dir):
         end_time = time.time()
         
         bbox_result, segm_result = result
-        segm_result = segm_result[0]
-
-        bboxes = np.vstack(bbox_result)
-
+        print (type(result))
         print (segm_result)
+        bboxes = np.vstack(bbox_result)
 
         labels = [np.full(bbox.shape[0], i, dtype=np.int32) for i, bbox in enumerate(bbox_result)]
         labels = np.concatenate(labels)
@@ -153,7 +151,7 @@ def process_jpg_crcnn(config_file, checkpoint_file, image_dir):
             #print(filename)
             
         if f_number == 1 or f_number % 200 == 0:
-            dump_path = "./demo/dump/dump-%06d.jpg" % (f_number)
+            dump_path = "./dump-%06d.jpg" % (f_number)
             cv2.imwrite(dump_path, frame)
             # log_file.flush()
             # os.fsync(log_file.fileno())
