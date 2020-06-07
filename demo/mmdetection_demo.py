@@ -131,6 +131,8 @@ def process_jpg_crcnn(config_file, checkpoint_file, image_dir):
         end_time = time.time()
         
         bbox_result, segm_result = result
+        segm_result = segm_result[0]
+
         bboxes = np.vstack(bbox_result)
 
         print (segm_result)
@@ -157,7 +159,7 @@ def process_jpg_crcnn(config_file, checkpoint_file, image_dir):
             # os.fsync(log_file.fileno())
 
     print('[DBG] detection complete!')
-    log_file.close()
+    # log_file.close()s
 
 if __name__ == '__main__':
     data_dir = sys.argv[1]
