@@ -112,27 +112,23 @@ class CocoDataset(CustomDataset):
         
         # print (ann_info)
 
-        # for i, ann in enumerate(ann_info):
-        for ann in ann_info:
-            print (ann['segmentation'])
-
+        for i, ann in enumerate(ann_info):
+        # for ann in ann_info:
+            # print (ann['segmentation'])
             if ann.get('ignore', False):
-                print ('ignore')
                 continue
             x1, y1, w, h = ann['bbox']
             if ann['area'] <= 0 or w < 1 or h < 1:
-                print ('wrong area')
                 continue
             if ann['category_id'] not in self.cat_ids:
-                print ('wrong cat id')
                 continue
             bbox = [x1, y1, x1 + w, y1 + h]
-            # if ann.get('iscrowd', False):
-            #     gt_bboxes_ignore.append(bbox)
-            # else:
-            gt_bboxes.append(bbox)
-            gt_labels.append(self.cat2label[ann['category_id']])
-            gt_masks_ann.append(ann['segmentation'])
+            if ann.get('iscrowd', False):
+                gt_bboxes_ignore.append(bbox)
+            else:
+                gt_bboxes.append(bbox)
+                gt_labels.append(self.cat2label[ann['category_id']])
+                gt_masks_ann.append(ann['segmentation'])
 
         if gt_bboxes:
             gt_bboxes = np.array(gt_bboxes, dtype=np.float32)
