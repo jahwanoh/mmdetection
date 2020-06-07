@@ -131,33 +131,26 @@ def process_jpg_crcnn(config_file, checkpoint_file, image_dir):
         end_time = time.time()
         
         bbox_result, segm_result = result
-        print (type(result))
-        print (segm_result)
-        cv2.imwrite('./test.jpg', frame)
+        segm_result = segm_result[0]
 
         bboxes = np.vstack(bbox_result)
 
         labels = [np.full(bbox.shape[0], i, dtype=np.int32) for i, bbox in enumerate(bbox_result)]
         labels = np.concatenate(labels)
 
-        for i in range(len(bboxes)):
-            bb = bboxes[i]
-            if labels[i] != 0:  continue
-            d = (int(bb[0]), int(bb[1]), int(bb[2]), int(bb[3]))
-            cv2.rectangle(frame, (d[0], d[1]), (d[2], d[3]), (255,0,0), 2)
-            # log_file.write(str(f_number)+","+str(d[0])+","+str(d[1])+","+str(d[2])+","+str(d[3]) + "\n")
+        res = cv2.bitwise_and(frame, frame, mask = segm_result)
+        cv2.imwrite('res_mask.jpg', frame)
 
-        if f_number == 1 or f_number % 50 == 0:
-            end_process = time.time()
-            print('[DBG][{}/{}] frame inference time: {} {}, elapsed time: {} {}'.format(f_number, frame_count, end_time-start_time, '.s', (end_process-start_process), '.s'))
-            #print(filename)
+        # for i in range(len(bboxes)):
+        #     bb = bboxes[i]
+        #     if labels[i] != 0:  continue
+        #     d = (int(bb[0]), int(bb[1]), int(bb[2]), int(bb[3]))
+        #     cv2.rectangle(frame, (d[0], d[1]), (d[2], d[3]), (255,0,0), 2)
+
+        # if f_number == 1 or f_number % 50 == 0:
+        #     end_process = time.time()
+        #     print('[DBG][{}/{}] frame inference time: {} {}, elapsed time: {} {}'.format(f_number, frame_count, end_time-start_time, '.s', (end_process-start_process), '.s'))
             
-        if f_number == 1 or f_number % 200 == 0:
-            dump_path = "./dump-%06d.jpg" % (f_number)
-            cv2.imwrite(dump_path, frame)
-            # log_file.flush()
-            # os.fsync(log_file.fileno())
-
     print('[DBG] detection complete!')
     # log_file.close()s
 
