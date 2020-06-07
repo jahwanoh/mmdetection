@@ -147,6 +147,7 @@ def process_jpg_crcnn(config_file, checkpoint_file, image_dir):
 
         mask = mask.T
         print (mask.shape)
+        print (frame.shape)
 
         bboxes = np.vstack(bbox_result)
 
