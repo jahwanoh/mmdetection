@@ -36,6 +36,7 @@ class CocoDataset(CustomDataset):
     def load_annotations(self, ann_file):
         self.coco = COCO(ann_file)
         self.cat_ids = self.coco.get_cat_ids(cat_names=self.CLASSES)
+        print(self.cat_ids)
         self.cat2label = {cat_id: i for i, cat_id in enumerate(self.cat_ids)}
         self.img_ids = self.coco.get_img_ids()
         data_infos = []
@@ -111,7 +112,7 @@ class CocoDataset(CustomDataset):
         gt_masks_ann = []
         
         for i, ann in enumerate(ann_info):
-            print (ann['segmentation'])
+            # print (ann['segmentation'])
 
             if ann.get('ignore', False):
                 continue
@@ -143,7 +144,7 @@ class CocoDataset(CustomDataset):
 
         seg_map = img_info['filename'].replace('jpg', 'png')
 
-        print (gt_masks_ann)
+        # print (gt_masks_ann)
 
         ann = dict(
             bboxes=gt_bboxes,
