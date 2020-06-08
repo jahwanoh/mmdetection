@@ -152,9 +152,16 @@ def process_jpg_crcnn(config_file, checkpoint_file, image_dir):
         labels = [np.full(bbox.shape[0], i, dtype=np.int32) for i, bbox in enumerate(bbox_result)]
         labels = np.concatenate(labels)
 
-        print (type(mask))
-        res = cv2.bitwise_and(frame, frame, mask = np.float32(mask))
-        cv2.imwrite('res_mask.jpg', mask)
+        mask_img = np.zeros((720, 1280), np.float32)
+        
+        for row in range(720):
+            for col in range(1280):
+
+                if mask[row][col] == True:
+                    mask_img[row][col] = 255
+
+        # res = cv2.bitwise_and(frame, frame, mask = np.float32(mask))
+        cv2.imwrite('res_mask.jpg', mask_img)
 
         # for i in range(len(bboxes)):
         #     bb = bboxes[i]
