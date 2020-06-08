@@ -158,10 +158,9 @@ def process_jpg_crcnn(config_file, checkpoint_file, image_dir):
             for col in range(frame.shape[1]):
 
                 if mask[row][col] == False:
-                    frame[row][col+0] = 0
-                    frame[row][col+1] = 0
-                    frame[row][col+2] = 0
-                    # mask_img[row][col] = 255
+                    frame[row][col][0] = 0
+                    frame[row][col][1] = 0
+                    frame[row][col][2] = 0
 
         # res = cv2.bitwise_and(frame, frame, mask = np.float32(mask))
         cv2.imwrite('res_mask.jpg', frame)
