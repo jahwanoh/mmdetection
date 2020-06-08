@@ -153,7 +153,7 @@ def process_jpg_crcnn(config_file, checkpoint_file, image_dir):
         labels = np.concatenate(labels)
 
         print (type(mask))
-        res = cv2.bitwise_and(frame, frame, mask = cv2.UMat(mask))
+        res = cv2.bitwise_and(frame, frame, mask = np.float32(mask))
         cv2.imwrite('res_mask.jpg', mask)
 
         # for i in range(len(bboxes)):
