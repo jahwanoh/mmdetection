@@ -152,10 +152,10 @@ def process_jpg_crcnn(config_file, checkpoint_file, image_dir):
         labels = [np.full(bbox.shape[0], i, dtype=np.int32) for i, bbox in enumerate(bbox_result)]
         labels = np.concatenate(labels)
 
-        mask_img = np.zeros((720, 1280), np.float32)
+        mask_img = np.zeros((frame.shape[1], frame.shape[0]), np.float32)
         
-        for row in range(720):
-            for col in range(1280):
+        for row in range(frame.shape[1]):
+            for col in range(frame.shape[0]):
 
                 if mask[row][col] == True:
                     mask_img[row][col] = 255
