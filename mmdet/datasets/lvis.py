@@ -268,8 +268,8 @@ class LVISDataset(CocoDataset):
         try:
             from lvis import LVIS
         except ImportError:
-            raise ImportError('Please follow install.md to '
-                              'install open-mmlab forked cocoapi first.')
+            raise ImportError('Please follow config/lvis/README.md to '
+                              'install open-mmlab forked lvis first.')
         self.coco = LVIS(ann_file)
         assert not self.custom_classes, 'LVIS custom classes is not supported'
         self.cat_ids = self.coco.get_cat_ids()
@@ -278,7 +278,14 @@ class LVISDataset(CocoDataset):
         data_infos = []
         for i in self.img_ids:
             info = self.coco.load_imgs([i])[0]
-            info['filename'] = info['file_name']
+            if info['file_name'].startswith('COCO'):
+                # Convert form the COCO 2014 file naming convention of
+                # COCO_[train/val/test]2014_000000000000.jpg to the 2017
+                # naming convention of 000000000000.jpg
+                # (LVIS v1 will fix this naming issue)
+                info['filename'] = info['file_name'][-16:]
+            else:
+                info['filename'] = info['file_name']
             data_infos.append(info)
         return data_infos
 
@@ -310,8 +317,8 @@ class LVISDataset(CocoDataset):
         try:
             from lvis import LVISResults, LVISEval
         except ImportError:
-            raise ImportError('Please follow install.md to '
-                              'install open-mmlab forked cocoapi first.')
+            raise ImportError('Please follow config/lvis/README.md to '
+                              'install open-mmlab forked lvis first.')
         assert isinstance(results, list), 'results must be a list'
         assert len(results) == len(self), (
             'The length of results is not equal to the dataset len: {} != {}'.
