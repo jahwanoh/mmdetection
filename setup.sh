@@ -1,6 +1,6 @@
 #!/bin/bash
 ####
-#activate virtualenv
+# source ~/venv/bepro-video-util/bin/activate
 
 pip install torch==1.3.1 torchvision==0.4.2
 pip install cython
@@ -12,12 +12,12 @@ pip install mmcv==0.6.2
 mkdir data
 ln -s $COCO_ROOT data
 
-gsutil -m cp gs://bepro-server-storage/dsort_tracking_data/installation/nccl-repo-ubuntu1804-2.6.4-ga-cuda10.0_1-1_amd64.deb .
+/snap/bin/gsutil -m cp gs://bepro-server-storage/dsort_tracking_data/installation/nccl-repo-ubuntu1804-2.6.4-ga-cuda10.0_1-1_amd64.deb .
 sudo dpkg -i nccl-repo-ubuntu1804-2.6.4-ga-cuda10.0_1-1_amd64.deb
 sudo apt update
 sudo apt install libnccl2=2.4.8-1+cuda10.0 libnccl-dev=2.4.8-1+cuda10.0
 
-gsutil -m cp gs://bepro-server-storage/dsort_tracking_data/checkpoints/crcnn_r50_bepro_stitch.pth .
+/snap/bin/gsutil -m cp gs://bepro-server-storage/dsort_tracking_data/checkpoints/crcnn_r50_bepro_stitch.pth .
 
 mkdir demo/dump
 
